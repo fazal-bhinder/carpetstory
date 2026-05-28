@@ -7,9 +7,9 @@ export function Heritage() {
   const t = useTranslations('Heritage');
 
   const archive = [
-    { cls: 'archive-1', label: t('archive1'), beamHost: true, beamDelay: '0s' },
-    { cls: 'archive-2', label: t('archive2'), beamHost: false, beamDelay: undefined as string | undefined },
-    { cls: 'archive-3', label: t('archive3'), beamHost: false, beamDelay: undefined as string | undefined },
+    { cls: 'archive-1', label: t('archive1'), beamHost: true, beamDelay: '0s', src: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=700&q=80&fm=webp', filter: undefined },
+    { cls: 'archive-2', label: t('archive2'), beamHost: false, beamDelay: undefined as string | undefined, src: 'https://i.pinimg.com/1200x/63/5e/fd/635efdfe1eb120e2b2a5a1948bfe528e.jpg', filter: undefined },
+    { cls: 'archive-3', label: t('archive3'), beamHost: false, beamDelay: undefined as string | undefined, src: 'https://i.pinimg.com/1200x/06/7b/41/067b419bd9ca18a793db2e2dbd71a376.jpg', filter: 'sepia(0.3) contrast(0.95)' },
   ];
 
   return (
@@ -47,10 +47,15 @@ export function Heritage() {
               >
                 <div
                   className={`ph ${item.cls} ${item.beamHost ? 'beam-host' : ''}`}
-                  style={item.beamDelay ? ({ '--beam-delay': item.beamDelay } as React.CSSProperties) : undefined}
-                  role="img"
-                  aria-label={item.label}
-                ></div>
+                  style={{ ...(item.beamDelay ? { '--beam-delay': item.beamDelay } as React.CSSProperties : {}), position: 'relative', overflow: 'hidden' }}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.label}
+                    loading="lazy"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: item.filter }}
+                  />
+                </div>
                 <div className="archive-label">{item.label}</div>
               </motion.div>
             ))}

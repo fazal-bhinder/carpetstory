@@ -52,7 +52,7 @@ export const heroPieces: Piece[] = [
     priceUSD: 14_400,
     placeholderGradient:
       'linear-gradient(135deg, #8a3a2a 0%, #4a2018 50%, #2a1410 100%)',
-    image: '/images/collection/khwab.jpg',
+    image: 'https://images.unsplash.com/photo-1646092646542-6404620730d2?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     gridSize: 'large',
     featured: true,
     beamDelay: '0s',
@@ -70,7 +70,7 @@ export const heroPieces: Piece[] = [
     priceUSD: 9_800,
     placeholderGradient:
       'linear-gradient(140deg, #c9b89a 0%, #8b7355 50%, #4a3e2e 100%)',
-    image: '/images/collection/saanjh.jpg',
+    image: 'https://plus.unsplash.com/premium_photo-1725295198378-d286934e2735?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     gridSize: 'small',
     featured: false,
     materials: ['Undyed wool'],
@@ -87,7 +87,7 @@ export const heroPieces: Piece[] = [
     priceUSD: 16_200,
     placeholderGradient:
       'linear-gradient(135deg, #2a3a5c 0%, #1a2540 50%, #0e1828 100%)',
-    image: '/images/collection/mehfil.jpg',
+    image: 'https://i.pinimg.com/control1/1200x/4e/a0/19/4ea0194e7d0368f5dd2e55f1a7a9f2d0.jpg',
     gridSize: 'small',
     featured: true,
     beamDelay: '-6s',
@@ -105,7 +105,7 @@ export const heroPieces: Piece[] = [
     priceUSD: 18_600,
     placeholderGradient:
       'linear-gradient(150deg, #d4a574 0%, #8a5a2e 50%, #4a2e14 100%)',
-    image: '/images/collection/shubh.jpg',
+    image: 'https://i.pinimg.com/control1/1200x/09/ca/d9/09cad9ad83b39168c90d553d2e1799af.jpg',
     gridSize: 'large',
     featured: true,
     beamDelay: '-12s',
@@ -123,7 +123,7 @@ export const heroPieces: Piece[] = [
     priceUSD: 12_400,
     placeholderGradient:
       'linear-gradient(135deg, #5a4028 0%, #3a2818 50%, #1f140a 100%)',
-    image: '/images/collection/naqsh.jpg',
+    image: 'https://i.pinimg.com/control1/1200x/bf/5a/af/bf5aaf5fea0f06788efd5bbac90e6390.jpg',
     gridSize: 'medium',
     featured: false,
     materials: ['Wool'],
@@ -140,7 +140,7 @@ export const heroPieces: Piece[] = [
     priceUSD: 11_200,
     placeholderGradient:
       'linear-gradient(135deg, #e8d4b0 0%, #c9b89a 50%, #8b7355 100%)',
-    image: '/images/collection/aaraam.jpg',
+    image: 'https://i.pinimg.com/control1/736x/a3/7c/37/a37c3780cd35cff13b35d2573b32a983.jpg',
     gridSize: 'medium',
     featured: false,
     materials: ['Wool', 'Cotton warp'],

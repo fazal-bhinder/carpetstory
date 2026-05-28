@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { LocaleSwitcher } from './LocaleSwitcher';
@@ -21,162 +20,41 @@ const WhatsAppIcon = ({ className = '' }: { className?: string }) => (
 
 export function Nav() {
   const t = useTranslations('Nav');
-  const tc = useTranslations('Common');
-  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const body = document.body;
-    if (open) {
-      const prev = body.style.overflow;
-      body.style.overflow = 'hidden';
-      return () => {
-        body.style.overflow = prev;
-      };
-    }
-  }, [open]);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = [
-    { href: '/collection', label: t('collection') },
-    { href: '/craft', label: t('craft') },
-    { href: '/heritage', label: t('heritage') },
-    { href: '/journal', label: t('journal') },
-    { href: '/trade', label: t('trade') },
-    { href: '/inquiry', label: t('inquiry') },
-  ];
-
   return (
-    <>
-      <nav id="nav" aria-label="Primary">
-        <Link href="/" className="brand" aria-label={t('brand')}>
-          {t('brand')}
+    <nav
+      id="nav"
+      aria-label="Primary"
+      style={scrolled ? { backgroundColor: 'var(--canvas)', boxShadow: '0 1px 0 rgba(26,24,23,0.08)' } : undefined}
+    >
+      <Link href="/" className="brand" aria-label={t('brand')}>
+        {t('brand')}
+      </Link>
+
+      <div className="nav-right flex items-center gap-3 sm:gap-5 lg:gap-7">
+        <Link href="/trade" className="nav-trade link hidden sm:inline-block">
+          {t('trade')}
         </Link>
-
-        <div className="nav-right hidden md:flex">
-          <Link href="/trade" className="nav-trade link">
-            {t('trade')}
-          </Link>
-          <a
-            href="https://wa.me/919876543210"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="whatsapp magnetic"
-            aria-label={`${t('whatsapp')} — opens in new tab`}
-          >
-            <WhatsAppIcon />
-            {t('whatsapp')}
-          </a>
-          <LocaleSwitcher />
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label={t('openMenu')}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          className="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2"
+        <a
+          href="https://wa.me/919876543210"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="whatsapp magnetic"
+          aria-label={`${t('whatsapp')} — opens in new tab`}
         >
-          <span className="sr-only">{t('openMenu')}</span>
-          <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true">
-            <line x1="0" y1="1" x2="22" y2="1" stroke="currentColor" strokeWidth="1.5" />
-            <line x1="0" y1="7" x2="22" y2="7" stroke="currentColor" strokeWidth="1.5" />
-            <line x1="0" y1="13" x2="22" y2="13" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
-        </button>
-      </nav>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            id="mobile-menu"
-            role="dialog"
-            aria-modal="true"
-            aria-label={tc('menu')}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as any }}
-            className="md:hidden fixed inset-0 z-[200] bg-[var(--canvas)] flex flex-col"
-          >
-            <div className="flex items-center justify-between px-5 py-4 border-b border-[rgba(26,24,23,0.08)]">
-              <Link
-                href="/"
-                onClick={() => setOpen(false)}
-                className="font-display text-[22px] tracking-[-0.02em]"
-              >
-                {t('brand')}
-              </Link>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label={t('closeMenu')}
-                className="inline-flex items-center justify-center w-11 h-11 -mr-2"
-              >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                  <line x1="2" y1="2" x2="18" y2="18" stroke="currentColor" strokeWidth="1.5" />
-                  <line x1="18" y1="2" x2="2" y2="18" stroke="currentColor" strokeWidth="1.5" />
-                </svg>
-              </button>
-            </div>
-
-            <motion.nav
-              aria-label="Mobile"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
-              }}
-              className="flex-1 flex flex-col px-5 py-8 gap-1 overflow-y-auto"
-            >
-              {navLinks.map((l) => (
-                <motion.div
-                  key={l.href}
-                  variants={{
-                    hidden: { opacity: 0, y: 12 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-                  }}
-                >
-                  <Link
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="block py-4 font-display font-light text-[32px] leading-[1.05] tracking-[-0.02em] text-[var(--ink)] border-b border-[rgba(26,24,23,0.08)]"
-                  >
-                    {l.label}
-                  </Link>
-                </motion.div>
-              ))}
-
-              <motion.a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                variants={{
-                  hidden: { opacity: 0, y: 12 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-                }}
-                className="mt-6 inline-flex items-center gap-3 py-4 text-[var(--accent)] text-[15px] tracking-[0.04em]"
-              >
-                <WhatsAppIcon />
-                {t('whatsapp')}
-              </motion.a>
-            </motion.nav>
-
-            <div className="px-5 py-6 border-t border-[rgba(26,24,23,0.08)] flex items-center justify-end">
-              <LocaleSwitcher />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+          <WhatsAppIcon />
+          <span className="hidden sm:inline">{t('whatsapp')}</span>
+        </a>
+        <LocaleSwitcher />
+      </div>
+    </nav>
   );
 }

@@ -33,11 +33,11 @@
   "Promise": {
     "headline": "Des métiers à tisser du Rajasthan aux sols des intérieurs les plus {italic} du monde.",
     "italic": "considérés",
-    "label": "Avant-propos",
+    "label": "II — Avant-propos",
     "body": "Chaque pièce Carpetstory est tissée par un seul artisan, signée à la main, et voyage d'une pièce de Jaipur vers une autre, partout dans le monde."
   },
   "Making": {
-    "label": "II — La fabrication",
+    "label": "III — La fabrication",
     "headline": "Huit mois de travail s'écoulent entre le premier fil et le dernier. Nous ne nous précipitons pas.",
     "frame1Tag": "01 — La main",
     "frame1Alt": "Mains du tisserand en plein nœud, gros plan extrême",
@@ -69,7 +69,7 @@
     "frame8Caption": "Et puis, après huit mois — le sol."
   },
   "Knot": {
-    "label": "III — Une étude d'échelle",
+    "label": "IV — Une étude d'échelle",
     "one": "Un nœud.",
     "ten": "Dix.",
     "hundred": "Cent.",
@@ -88,7 +88,7 @@
     "madeByValue": "Un artisan"
   },
   "Materials": {
-    "label": "IV — Les matériaux",
+    "label": "V — Les matériaux",
     "headline": "Une liste courte et réfléchie de choses qui touchent le sol.",
     "woolName": "Laine",
     "woolDesc": "Provenant de moutons des hauts plateaux de Bikaner, où la laine est à fibres longues, riche en lanoline et naturellement lustrée. Filée à la main, jamais cardée à la machine.",
@@ -120,7 +120,7 @@
     "footer": "Six plantes. Une rivière. Un toit sous le soleil du Rajasthan. Chaque couleur d'une pièce Carpetstory commence quelque part où l'on pourrait marcher."
   },
   "Collection": {
-    "label": "V — La collection",
+    "label": "I — La collection",
     "headline": "Six pièces. Choisies, non cataloguées.",
     "viewAll": "Voir les 24 pièces →",
     "viewPiece": "Voir la pièce →",
@@ -214,6 +214,41 @@
     "rightBody": "Tarifs commerciaux, accès complet à la collection, échantillons de projet, et un point de contact dédié à la spécification.",
     "rightCta": "Ouvrir un compte professionnel →"
   },
+  "Archive": {
+    "title": "L'Archive",
+    "subtitle": "Les 24 pièces. Chacune tissée par un seul artisan pendant six à douze mois.",
+    "from": "À partir de",
+    "viewPiece": "Voir la pièce →"
+  },
+  "Trade": {
+    "title": "Pour les architectes d'intérieur",
+    "intro1": "Nous travaillons directement avec architectes, architectes d'intérieur et professionnels de l'hôtellerie pour sourcer, personnaliser et commander des tapis faits main pour des projets spécifiques.",
+    "intro2": "Notre programme professionnel est conçu pour simplifier le processus de spécification, en vous offrant un accompagnement dédié, du concept initial à l'installation finale.",
+    "benefitsHeading": "Avantages professionnels",
+    "benefitsLead": "En tant que partenaire professionnel enregistré, vous bénéficiez de :",
+    "benefit1Title": "Tarifs professionnels",
+    "benefit1Body": "Remises exclusives sur l'ensemble de notre collection.",
+    "benefit2Title": "Personnalisation",
+    "benefit2Body": "Modifiez la taille, l'échelle ou la palette de couleurs de tout modèle existant pour qu'il s'adapte à votre projet.",
+    "benefit3Title": "Commandes sur mesure",
+    "benefit3Body": "Travaillez avec notre équipe de design à Jaipur pour tisser une pièce entièrement nouvelle, unique en son genre.",
+    "benefit4Title": "Échantillons",
+    "benefit4Body": "Strike-offs et échantillons de matériaux offerts, expédiés directement à votre studio.",
+    "benefit5Title": "Accompagnement dédié",
+    "benefit5Body": "Un point de contact unique pour gérer les délais, l'expédition et la logistique d'installation.",
+    "processHeading": "Le processus",
+    "step1Title": "1. Spécification",
+    "step1Body": "Partagez vos plans, échantillons de tissu ou planches d'inspiration. Nous recommanderons des pièces des archives ou commencerons à dessiner un modèle personnalisé.",
+    "step2Title": "2. Strike-off",
+    "step2Body": "Pour les commandes sur mesure, nous teignons le fil et tissons un petit échantillon de 60 × 60 cm (un strike-off) pour votre approbation avant de mettre la pièce entière sur le métier.",
+    "step3Title": "3. Production",
+    "step3Body": "Une fois approuvé, le tapis est tissé. Selon le nombre de nœuds et l'échelle, cela prend de 12 à 36 semaines. Nous fournissons des mises à jour visuelles régulières depuis le métier.",
+    "quote": "Carpetstory a parfaitement compris ce dont l'espace avait besoin. La pièce sur mesure qu'ils ont tissée pour la maison de ville londonienne est l'ancre de toute la pièce.",
+    "quoteAuthor": "Studio Ashby",
+    "openAccountHeading": "Ouvrir un compte",
+    "openAccountBody": "Pour demander un compte professionnel, veuillez envoyer par e-mail les coordonnées de votre entreprise, votre certificat de revente et votre site web à notre équipe.",
+    "applyCta": "Postuler par e-mail"
+  },
   "TwoDoors": {
     "tradeHeadline": "Architectes & designers d'intérieur",
     "tradeBody": "Accédez à notre portail professionnel pour fiches techniques, tarifs commerciaux et commandes sur mesure.",
@@ -287,5 +322,13 @@
     "english": "English",
     "french": "Français",
     "german": "Deutsch"
+  },
+  "PiecePage": {
+    "dimensions": "Dimensions",
+    "materials": "Matériaux",
+    "density": "Densité",
+    "weaveTime": "Temps de tissage",
+    "priceFrom": "À partir de",
+    "inquire": "Demander des informations"
   }
 }

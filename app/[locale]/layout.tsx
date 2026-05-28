@@ -20,6 +20,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Toaster } from '@/components/ui/sonner';
 import { GeoBanner } from '@/components/editorial/GeoBanner';
+import { CookieConsent } from '@/components/editorial/CookieConsent';
 import { localBusinessSchema, organizationSchema, websiteSchema } from '@/lib/seo';
 
 const SITE_URL =
@@ -38,22 +39,20 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Carpetstory — Handmade Rugs from Jaipur, Rajasthan',
+    default: 'Carpetstory — Handmade Persian-Knot Rugs from Jaipur',
     template: '%s | Carpetstory',
   },
   description:
-    'Handmade rugs from Jaipur, Rajasthan. One-of-one hand-knotted carpets woven by single artisans over six to ten months. Shipped worldwide.',
+    'Handmade wool and silk rugs from a single Jaipur atelier. Eight to ten months on the loom. Hand-tied Persian knots, natural dyes, and a four-generation family of weavers.',
   keywords: [
-    'handmade rugs',
-    'hand-knotted carpets',
-    'Jaipur rugs',
-    'wool rugs',
-    'silk rugs',
-    'oriental carpets',
-    'persian rugs',
-    'designer rugs',
+    'handmade persian rug',
+    'jaipur rug',
+    'hand-knotted wool rug',
+    'luxury indian rug',
+    'custom carpet maker',
+    'natural dye rug',
     'bespoke carpets',
-    'luxury rugs',
+    'silk rugs',
   ],
   authors: [{ name: 'Carpetstory' }],
   creator: 'Carpetstory',
@@ -151,6 +150,7 @@ export default async function RootLayout({
 
             <GlobalAnimations />
             <GeoBanner locale={locale} />
+            <CookieConsent />
             <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
               {children}
             </main>

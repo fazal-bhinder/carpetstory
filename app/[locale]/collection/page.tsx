@@ -1,10 +1,9 @@
 import { Nav } from '@/components/editorial/Nav';
 import { Footer } from '@/components/editorial/Footer';
 import { allPieces } from '@/lib/pieces';
-import { PieceCard } from '@/components/editorial/PieceCard';
-import { Reveal } from '@/components/editorial/Reveal';
 import { Metadata } from 'next';
 import { generatePageMetadata, breadcrumbSchema, jsonLd, SITE_URL } from '@/lib/seo';
+import { ArchiveContent } from './ArchiveContent';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -56,23 +55,7 @@ export default async function CollectionPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: jsonLd({ '@graph': [breadcrumb, itemList] }) }}
       />
       <Nav />
-
-      <main className="flex-1 pt-32 sm:pt-40 pb-16 sm:pb-24 px-5 sm:px-7 lg:px-12">
-        <div className="max-w-[1400px] mx-auto">
-          <Reveal>
-            <h1 className="font-display font-light text-[40px] sm:text-[56px] md:text-[80px] leading-[1] tracking-[-0.02em] text-ink mb-12 sm:mb-20 text-center">
-              The Archive
-            </h1>
-          </Reveal>
-
-          <div className="grid-12 gap-y-12 sm:gap-y-16 lg:gap-y-32">
-            {allPieces.map((piece, i) => (
-              <PieceCard key={piece.slug} piece={piece} index={i} />
-            ))}
-          </div>
-        </div>
-      </main>
-
+      <ArchiveContent />
       <Footer />
     </div>
   );

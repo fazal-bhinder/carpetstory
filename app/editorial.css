@@ -5,9 +5,9 @@
    ========================================================================== */
 
 :root {
-  --canvas: #F5F1EA;
-  --canvas-warm: #EBE5D8;
-  --canvas-warmer: #E0D8C5;
+  --canvas: #EDE5D4;
+  --canvas-warm: #E4DACB;
+  --canvas-warmer: #D8CDB8;
   --ink: #1A1817;
   --ink-soft: #3A3735;
   --ink-faint: rgba(26, 24, 23, 0.15);
@@ -19,6 +19,13 @@
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-weave: cubic-bezier(0.7, 0, 0.3, 1);
+
+  /* Warm ambient background — shared across the whole site */
+  --bg-warm:
+    radial-gradient(ellipse 70% 60% at 15% 25%, rgba(180, 100, 70, 0.09) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 55% at 85% 70%, rgba(42, 58, 92, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 70% at 50% 50%, rgba(110, 31, 35, 0.035) 0%, transparent 60%),
+    linear-gradient(175deg, #F0E8DA 0%, #EDE5D4 35%, #E8DCCA 65%, #EDE5D4 100%);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0; }
@@ -35,7 +42,8 @@ html.lenis { height: auto; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
 
 body {
-  background: var(--canvas);
+  background: var(--bg-warm);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
   font-weight: 400;
@@ -233,7 +241,7 @@ nav {
 }
 nav > * { pointer-events: auto; }
 nav.scrolled {
-  background: rgba(245, 241, 234, 0.92);
+  background: rgba(237, 229, 212, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom-color: rgba(26, 24, 23, 0.08);
@@ -258,7 +266,7 @@ nav .whatsapp { color: var(--accent); font-size: 13px; font-weight: 500; letter-
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
-  background: var(--canvas);
+  background: transparent;
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr;
@@ -277,6 +285,69 @@ nav .whatsapp { color: var(--accent); font-size: 13px; font-weight: 500; letter-
 
 .hero-rug { grid-column: 2 / 11; grid-row: 2 / 3; position: relative; align-self: stretch; justify-self: stretch; }
 .hero-rug-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* New hero rug frame — clean img with corner brackets */
+.hero-rug-frame {
+  position: absolute;
+  inset: 6% 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-rug-outer {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(120, 70, 45, 0.35);
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeRug 1.4s var(--ease-out) 0.2s forwards;
+}
+.hero-rug-inner {
+  position: absolute;
+  inset: 4%;
+  overflow: hidden;
+  background: var(--canvas-warmer);
+  opacity: 0;
+  animation: fadeRug 1.6s var(--ease-out) 1.1s forwards;
+  box-shadow:
+    0 8px 60px -10px rgba(140, 70, 40, 0.18),
+    0 2px 20px -4px rgba(42, 58, 92, 0.08);
+}
+.hero-rug-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.rug-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeRug 1s var(--ease-out) 1.8s forwards;
+}
+.rug-corner::before,
+.rug-corner::after {
+  content: '';
+  position: absolute;
+  background: var(--accent);
+}
+.rug-corner-tl { top: -1px; left: -1px; }
+.rug-corner-tl::before { top: 0; left: 0; width: 24px; height: 1.5px; }
+.rug-corner-tl::after  { top: 0; left: 0; width: 1.5px; height: 24px; }
+.rug-corner-tr { top: -1px; right: -1px; }
+.rug-corner-tr::before { top: 0; right: 0; width: 24px; height: 1.5px; }
+.rug-corner-tr::after  { top: 0; right: 0; width: 1.5px; height: 24px; }
+.rug-corner-bl { bottom: -1px; left: -1px; }
+.rug-corner-bl::before { bottom: 0; left: 0; width: 24px; height: 1.5px; }
+.rug-corner-bl::after  { bottom: 0; left: 0; width: 1.5px; height: 24px; }
+.rug-corner-br { bottom: -1px; right: -1px; }
+.rug-corner-br::before { bottom: 0; right: 0; width: 24px; height: 1.5px; }
+.rug-corner-br::after  { bottom: 0; right: 0; width: 1.5px; height: 24px; }
+
+/* Soften the thread canvas behind the hero so the rug stands out */
+.hero .thread-canvas-wrap { opacity: 0.35; }
 
 .hero-headline {
   position: absolute;
@@ -332,6 +403,7 @@ nav .whatsapp { color: var(--accent); font-size: 13px; font-weight: 500; letter-
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
+.hero-headline .meta-right { pointer-events: auto; }
 .hero-headline .meta-right .see-how { pointer-events: auto; }
 
 .hero-topbar {
@@ -353,23 +425,36 @@ nav .whatsapp { color: var(--accent); font-size: 13px; font-weight: 500; letter-
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle at 1px 1px, rgba(26,24,23,0.025) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(110, 50, 35, 0.018) 1px, transparent 0);
   background-size: 4px 4px;
   pointer-events: none;
   z-index: 1;
 }
 
+/* Warm ambient glow behind the rug frame — makes it feel lit from within */
+.hero-rug::before {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(180, 90, 60, 0.09) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 55% at 35% 60%, rgba(42, 58, 92, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(40px);
+}
+
 /* =============================================================
    SECTION SCAFFOLDING
    ============================================================= */
-section { padding: 180px 48px; position: relative; }
+section { padding: 100px 48px; position: relative; }
 .container { max-width: 1440px; margin: 0 auto; width: 100%; }
 .grid-12 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px; }
 
 /* =============================================================
    2. THE PROMISE
    ============================================================= */
-.promise .container { padding: 80px 0; }
+.promise .container { padding: 0; }
 .promise h2 {
   font-family: var(--font-fraunces), 'Fraunces', serif;
   font-variation-settings: "opsz" 144;
@@ -393,9 +478,9 @@ section { padding: 180px 48px; position: relative; }
 /* =============================================================
    3. THE MAKING — Editorial photo essay with varied layouts
    ============================================================= */
-.making { padding: 0; background: var(--canvas); }
+.making { padding: 0; background: transparent; }
 .making-intro {
-  padding: 180px 48px 120px;
+  padding: 100px 48px 80px;
   max-width: 1440px;
   margin: 0 auto;
   display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px;
@@ -608,7 +693,7 @@ section { padding: 180px 48px; position: relative; }
 .immersive {
   position: relative;
   height: 220vh; /* tall section provides scroll runway */
-  background: var(--canvas);
+  background: transparent;
   padding: 0;
 }
 .immersive-sticky {
@@ -621,16 +706,12 @@ section { padding: 180px 48px; position: relative; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--canvas);
+  background: transparent;
 }
 .immersive-bg {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-image:
-    linear-gradient(rgba(245, 241, 234, 0.85), rgba(245, 241, 234, 0.92)),
-    linear-gradient(135deg, #8b7355 0%, #c9b89a 40%, #e8d9b8 100%);
+  background: transparent;
   opacity: 1;
   transition: opacity 0.3s linear;
 }
@@ -724,7 +805,7 @@ section { padding: 180px 48px; position: relative; }
 /* =============================================================
    4. KNOT COUNT
    ============================================================= */
-.knot-section { background: var(--canvas); padding: 0; }
+.knot-section { background: transparent; padding: 0; }
 .knot-stage {
   min-height: 100vh;
   min-height: 100dvh;
@@ -793,7 +874,7 @@ section { padding: 180px 48px; position: relative; }
 .knot-final {
   min-height: 100vh;
   min-height: 100dvh;
-  background: var(--canvas);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -831,7 +912,7 @@ section { padding: 180px 48px; position: relative; }
 /* =============================================================
    5. MATERIALS
    ============================================================= */
-.materials { background: var(--canvas); }
+.materials { background: transparent; }
 .materials .header { margin-bottom: 100px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px; }
 .materials .header .label { grid-column: 1 / 4; color: var(--ink-soft); }
 .materials .header h2 {
@@ -898,7 +979,7 @@ section { padding: 180px 48px; position: relative; }
    COLOR STORY
    ============================================================= */
 .color-story {
-  background: var(--canvas);
+  background: transparent;
   padding: 240px 0;
   position: relative;
   overflow: hidden;
@@ -991,7 +1072,7 @@ section { padding: 180px 48px; position: relative; }
   padding: 32px 0;
   border-top: 1px solid var(--ink-faint);
   border-bottom: 1px solid var(--ink-faint);
-  background: var(--canvas);
+  background: transparent;
   mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
 }
@@ -1030,7 +1111,7 @@ section { padding: 180px 48px; position: relative; }
 /* =============================================================
    6. COLLECTION
    ============================================================= */
-.collection { background: var(--canvas); }
+.collection { background: transparent; }
 .collection .header {
   margin-bottom: 120px;
   display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px;
@@ -1140,7 +1221,7 @@ section { padding: 180px 48px; position: relative; }
 /* =============================================================
    7. HERITAGE
    ============================================================= */
-.heritage { background: var(--canvas); }
+.heritage { background: transparent; }
 .heritage-grid {
   display: grid; grid-template-columns: repeat(12, 1fr); gap: 80px 32px;
   align-items: start;
@@ -1180,12 +1261,12 @@ section { padding: 180px 48px; position: relative; }
    8. LETTER
    ============================================================= */
 .letter {
-  background: var(--canvas);
-  padding: 100px 48px 140px;
+  background: transparent;
+  padding: 60px 48px 80px;
   display: flex; justify-content: center;
 }
 .letter-inner { max-width: 520px; text-align: center; }
-.letter .label { color: var(--ink-soft); margin-bottom: 60px; display: block; }
+.letter .label { color: var(--ink-soft); margin-bottom: 32px; display: block; }
 .letter p {
   font-family: var(--font-fraunces), 'Fraunces', serif; font-style: italic;
   font-variation-settings: "opsz" 144;
@@ -1194,7 +1275,7 @@ section { padding: 180px 48px; position: relative; }
   color: var(--ink); margin-bottom: 24px;
 }
 .letter .signature {
-  margin-top: 60px;
+  margin-top: 36px;
   font-family: var(--font-caveat), 'Caveat', cursive;
   font-size: 44px;
   color: var(--accent);
@@ -1215,10 +1296,11 @@ section { padding: 180px 48px; position: relative; }
 /* =============================================================
    9. IN THE WORLD
    ============================================================= */
-.world { background: var(--canvas); padding: 180px 0; }
+.world { background: transparent; padding: 80px 0; overflow: hidden; }
 .world .header {
   padding: 0 48px;
-  margin-bottom: 80px;
+  max-width: 1400px;
+  margin: 0 auto 48px;
   display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px;
 }
 .world .header .label { grid-column: 1 / 4; color: var(--ink-soft); }
@@ -1232,18 +1314,29 @@ section { padding: 180px 48px; position: relative; }
   letter-spacing: -0.025em;
 }
 
-.world-gallery {
-  display: flex; gap: 24px;
-  overflow-x: auto;
-  padding: 0 48px 40px;
-  scrollbar-width: thin;
+.world-marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
-.world-gallery::-webkit-scrollbar { height: 2px; }
-.world-gallery::-webkit-scrollbar-track { background: var(--ink-faint); }
-.world-gallery::-webkit-scrollbar-thumb { background: var(--ink); }
-.world-item { flex-shrink: 0; width: 560px; }
+.world-marquee-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: worldScroll 30s linear infinite;
+}
+.world-marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes worldScroll {
+  to { transform: translateX(calc(-50% - 12px)); }
+}
+
+.world-item { flex-shrink: 0; width: 560px; padding: 0 12px; }
 .world-item .ph { aspect-ratio: 16 / 10; margin-bottom: 16px; }
-.world-item .caption { font-size: 13px; color: var(--ink-soft); letter-spacing: 0.02em; }
+.world-item .caption { font-size: 13px; color: var(--ink-soft); letter-spacing: 0.02em; padding-left: 12px; }
 .world-1 { background: linear-gradient(135deg, #2a2421 0%, #6b5a4a 100%) !important; }
 .world-2 { background: linear-gradient(135deg, #f5f1ea 0%, #c9b89a 100%) !important; }
 .world-3 { background: linear-gradient(135deg, #5a3a2a 0%, #c4a878 100%) !important; }
@@ -1254,8 +1347,8 @@ section { padding: 180px 48px; position: relative; }
    TESTIMONIALS — Editorial single-quote presentation
    ============================================================= */
 .testimonials-editorial {
-  background: var(--canvas);
-  padding: 160px 48px 120px;
+  background: transparent;
+  padding: 100px 48px 80px;
   position: relative;
 }
 .testimonials-inner {
@@ -1388,6 +1481,7 @@ section { padding: 180px 48px; position: relative; }
 }
 .door-left { background: var(--canvas); }
 .door-right { background: var(--canvas-warm); }
+
 .door:hover { background: var(--ink); color: var(--canvas); }
 .door:hover .label { color: var(--canvas); opacity: 0.7; }
 .door:hover .door-cta::after { background: var(--canvas); }
@@ -1410,8 +1504,8 @@ section { padding: 180px 48px; position: relative; }
    11. INQUIRY
    ============================================================= */
 .inquiry {
-  background: var(--canvas);
-  padding: 140px 48px 80px;
+  background: transparent;
+  padding: 100px 48px 80px;
   display: flex; justify-content: center;
 }
 .inquiry-form { width: 100%; max-width: 640px; }
@@ -1601,6 +1695,7 @@ footer .col ul li a:hover { opacity: 1; color: var(--accent-soft); }
 
   /* World carousel — smaller cards */
   .world-item { width: 80vw; max-width: 480px; }
+  .world .header { margin-bottom: 40px; }
 }
 
 /* Tablet portrait & below (≤ 768px) */
@@ -1619,9 +1714,35 @@ footer .col ul li a:hover { opacity: 1; color: var(--accent-soft); }
   .inquiry { padding: 100px 24px 64px; }
   .press-strip { padding: 32px 24px; gap: 24px; }
   .press-strip .logos { gap: 32px; }
-  .world { padding: 120px 0; }
+  .world { padding: 80px 0; }
   .world .header { padding: 0 24px; }
-  .world-gallery { padding: 0 24px 32px; }
+}
+
+/* =============================================================
+   KNOT SECTION — number + dot grid layout
+   ============================================================= */
+.knot-section.knot-single .knot-container { padding: 80px 40px; }
+.knot-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 60px;
+}
+.knot-number-col { min-width: 0; }
+.knot-grid-col { display: flex; align-items: center; justify-content: center; }
+
+@media (max-width: 1024px) {
+  .knot-section.knot-single .knot-container { padding: 80px 32px; }
+  .knot-row { gap: 48px; }
+}
+@media (max-width: 768px) {
+  .knot-section.knot-single .knot-container { padding: 64px 24px; }
+  .knot-row { grid-template-columns: 1fr; gap: 40px; }
+  .knot-grid-col .knot-dot-grid { max-width: 220px !important; margin: 0 auto; }
+}
+@media (max-width: 640px) {
+  .knot-section.knot-single .knot-container { padding: 56px 20px; }
+  .knot-grid-col .knot-dot-grid { max-width: 200px !important; }
 }
 
 /* Mobile (≤ 640px) */
@@ -1630,13 +1751,18 @@ footer .col ul li a:hover { opacity: 1; color: var(--accent-soft); }
   nav { padding: 14px 20px; }
   nav.scrolled { padding: 10px 20px; }
   nav .brand { font-size: 20px; }
-  .hero-headline { left: 20px; right: 20px; bottom: 40px; flex-direction: column; align-items: flex-start; gap: 24px; }
-  .hero-headline .meta-right { align-items: flex-start; text-align: left; max-width: 100%; padding-bottom: 0; }
-  .hero-headline .meta-right .num { font-size: 44px; }
-  .hero-headline h1 { font-size: clamp(56px, 18vw, 110px); }
-  .hero-topbar { left: 20px; right: 20px; top: 64px; }
-  .hero-topbar .left, .hero-topbar .right { gap: 14px; flex-wrap: wrap; }
-  .hero-scroll { bottom: 24px; }
+
+  /* Hero — reduce stage padding and grid rows so headline doesn't crowd the rug */
+  .hero-stage { padding: 0 20px; grid-template-rows: 80px 1fr 80px; }
+  .hero-rug { grid-column: 1 / 13; }
+  .hero-headline { left: 20px; right: 20px; bottom: 32px; flex-direction: column; align-items: flex-start; gap: 20px; pointer-events: none; }
+  .hero-headline .meta-right { align-items: flex-start; text-align: left; max-width: 100%; padding-bottom: 0; gap: 10px; pointer-events: auto; }
+  .hero-headline .meta-right .num { font-size: 40px; }
+  .hero-headline h1 { font-size: clamp(48px, 16vw, 92px); line-height: 0.88; }
+  .hero-topbar { left: 20px; right: 20px; top: 72px; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .hero-topbar .left, .hero-topbar .right { gap: 12px; flex-wrap: wrap; }
+  .hero-topbar .divider { display: none; }
+  .hero-scroll { display: none; }
 
   .promise .container { padding: 40px 0; }
 
@@ -1683,10 +1809,10 @@ footer .col ul li a:hover { opacity: 1; color: var(--accent-soft); }
 
   .heritage-text h2 { margin-bottom: 32px; }
 
-  .letter { padding: 64px 20px 80px; }
-  .letter .label { margin-bottom: 40px; }
+  .letter { padding: 48px 20px 56px; }
+  .letter .label { margin-bottom: 24px; }
   .letter p { font-size: 19px; }
-  .letter .signature { font-size: 38px; margin-top: 40px; }
+  .letter .signature { font-size: 38px; margin-top: 24px; }
 
   .door { padding: 64px 24px; }
   .door h3 { margin: 28px 0 18px; }

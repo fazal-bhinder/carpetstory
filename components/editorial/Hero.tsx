@@ -97,6 +97,7 @@ export function Hero() {
             <span className="num" id="hero-knot-count" data-target="2200000" data-format="m">0</span>
             <span className="label" style={{ opacity: 0.7 }}>{t('knots')}</span>
             <a href="#making" className="link always see-how magnetic" style={{ marginTop: '18px', fontSize: '13px', letterSpacing: '0.04em' }}>{t('seeHow')}</a>
+            <a href="#inquiry" className="link always" style={{ marginTop: '10px', fontSize: '13px', letterSpacing: '0.04em', color: 'var(--accent)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>{t('inquiryCta')}</a>
           </motion.div>
         </div>
 

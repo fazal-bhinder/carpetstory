@@ -16,9 +16,30 @@ export function Materials() {
   const t = useTranslations('Materials');
 
   const materials = [
-    { swatchClass: 'swatch-wool', name: t('woolName'), desc: t('woolDesc'), origin: t('woolOrigin') },
-    { swatchClass: 'swatch-silk', name: t('silkName'), desc: t('silkDesc'), origin: t('silkOrigin') },
-    { swatchClass: 'swatch-cotton', name: t('cottonName'), desc: t('cottonDesc'), origin: t('cottonOrigin') },
+    {
+      swatchClass: 'swatch-wool',
+      name: t('woolName'),
+      desc: t('woolDesc'),
+      origin: t('woolOrigin'),
+      imgSrc: 'https://i.pinimg.com/control1/736x/bb/42/3f/bb423fa2cfb4bf90b3eb12ee569bb1ea.jpg',
+      imgAlt: 'Close-up of raw wool fibers',
+    },
+    {
+      swatchClass: 'swatch-silk',
+      name: t('silkName'),
+      desc: t('silkDesc'),
+      origin: t('silkOrigin'),
+      imgSrc: 'https://i.pinimg.com/736x/62/6e/91/626e914beaba64dfff06cf99eb1fc8da.jpg',
+      imgAlt: 'Lustrous silk threads catching light',
+    },
+    {
+      swatchClass: 'swatch-cotton',
+      name: t('cottonName'),
+      desc: t('cottonDesc'),
+      origin: t('cottonOrigin'),
+      imgSrc: 'https://i.pinimg.com/control1/736x/1e/d3/a9/1ed3a9b808f6feacca284cf3c1b69d5d.jpg',
+      imgAlt: 'Raw cotton fibers and bolls',
+    },
   ];
 
   const dyes: Array<{ key: 'madder' | 'indigo' | 'walnut'; cls: string }> = [
@@ -72,7 +93,22 @@ export function Materials() {
                 viewport={{ once: true }}
                 role="img"
                 aria-label={`${mat.name} swatch`}
-              />
+                style={{ position: 'relative', overflow: 'hidden' }}
+              >
+                <img
+                  src={mat.imgSrc}
+                  alt={mat.imgAlt}
+                  loading="lazy"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                />
+              </motion.div>
               <h3 className="material-name">{mat.name}</h3>
               <p>{mat.desc}</p>
               <div className="origin">{mat.origin}</div>

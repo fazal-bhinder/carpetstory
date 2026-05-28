@@ -1,65 +1,111 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { CountUp } from './CountUp';
+
+const COLS = 40;
+const ROWS = 40;
+const TOTAL_DOTS = COLS * ROWS;
+
+function AnimatedDotGrid() {
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.3 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className="knot-dot-grid"
+      aria-hidden="true"
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${COLS}, 1fr)`,
+        gap: '3px',
+        width: '100%',
+        maxWidth: '280px',
+      }}
+    >
+      {Array.from({ length: TOTAL_DOTS }).map((_, i) => (
+        <span
+          key={i}
+          style={{
+            display: 'block',
+            width: '4px',
+            height: '4px',
+            borderRadius: '50%',
+            backgroundColor: 'var(--accent)',
+            opacity: visible ? 0.75 : 0,
+            transition: `opacity 0.15s ease ${(i / TOTAL_DOTS) * 2000}ms`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export function KnotCount() {
   const t = useTranslations('Knot');
 
   return (
-    <section className="knot-section" aria-labelledby="knot-heading">
-      <div className="knot-stage knot-stage-1">
-        <span className="label">{t('label')}</span>
-        <h3 id="knot-heading">{t('one')}</h3>
-        <div className="dots-1"><span className="d"></span></div>
-      </div>
+    <section
+      className="knot-section knot-single"
+      aria-labelledby="knot-heading"
+      style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+    >
+      <div className="knot-container" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+        <span className="label" style={{ display: 'block', marginBottom: '48px' }}>{t('label')}</span>
 
-      <div className="knot-stage knot-stage-2">
-        <h3>{t('ten')}</h3>
-        <div className="dots-10">
-          <span className="d"></span><span className="d"></span><span className="d"></span><span className="d"></span><span className="d"></span>
-          <span className="d"></span><span className="d"></span><span className="d"></span><span className="d"></span><span className="d"></span>
-        </div>
-      </div>
-
-      <div className="knot-stage knot-stage-3">
-        <h3>{t('hundred')}</h3>
-        <p className="sub">{t('hundredSub')}</p>
-        <div className="dots-100" id="dots-100"></div>
-      </div>
-
-      <div className="knot-stage knot-stage-4">
-        <h3 data-countup="14400">0</h3>
-        <p className="sub">{t('squareFootSub')}</p>
-      </div>
-
-      <div className="knot-stage knot-stage-5">
-        <h3>
-          <span data-countup="1152000">0</span><br />
-          <span style={{ fontSize: '0.4em', color: 'var(--ink-soft)', fontStyle: 'italic' }}>
-            {t('rugSub')}
-          </span>
-        </h3>
-      </div>
-
-      <div className="knot-final">
-        <div className="container">
-          <span className="label">{t('finalLabel')}</span>
-          <div className="big-num">
-            {t('finalUpTo')} <span className="accent" data-countup="2257920" data-glow="true">0</span><br />
-            {t('finalSuffix')}
+        <div className="knot-row">
+          <div className="knot-number-col">
+            <h2
+              id="knot-heading"
+              style={{
+                fontFamily: 'var(--font-fraunces), serif',
+                fontSize: 'clamp(56px, 10vw, 120px)',
+                fontWeight: 300,
+                lineHeight: 1,
+                letterSpacing: '-0.02em',
+                margin: '0 0 24px',
+              }}
+            >
+              <CountUp target={1152000} duration={2500} />
+            </h2>
+            <p style={{ fontFamily: 'var(--font-fraunces), serif', fontSize: 'clamp(20px, 3vw, 28px)', fontStyle: 'italic', fontWeight: 300, color: 'var(--ink)', marginBottom: '16px' }}>
+              {t('rugSub')}
+            </p>
+            <p style={{ fontSize: '13px', color: 'var(--ink-soft)', letterSpacing: '0.02em' }}>
+              {t('finalUpTo')} <CountUp target={2257920} duration={2800} /> {t('finalSuffix')}
+            </p>
           </div>
-          <div className="knot-tagline">{t('tagline')}</div>
-          <div className="knot-foot">
-            <div>
-              <div className="label">{t('density')}</div>
-              <div className="val">{t('densityValue')}</div>
-            </div>
-            <div>
-              <div className="label">{t('weaveTime')}</div>
-              <div className="val">{t('weaveTimeValue')}</div>
-            </div>
-            <div>
-              <div className="label">{t('madeBy')}</div>
-              <div className="val">{t('madeByValue')}</div>
-            </div>
+
+          <div className="knot-grid-col">
+            <AnimatedDotGrid />
+          </div>
+        </div>
+
+        <div className="knot-foot" style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid rgba(26,24,23,0.12)', display: 'flex', gap: '48px', flexWrap: 'wrap' }}>
+          <div>
+            <div className="label">{t('density')}</div>
+            <div className="val" style={{ marginTop: '6px', fontSize: '16px' }}>{t('densityValue')}</div>
+          </div>
+          <div>
+            <div className="label">{t('weaveTime')}</div>
+            <div className="val" style={{ marginTop: '6px', fontSize: '16px' }}>{t('weaveTimeValue')}</div>
+          </div>
+          <div>
+            <div className="label">{t('madeBy')}</div>
+            <div className="val" style={{ marginTop: '6px', fontSize: '16px' }}>{t('madeByValue')}</div>
           </div>
         </div>
       </div>

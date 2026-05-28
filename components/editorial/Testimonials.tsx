@@ -1,32 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { useTranslations } from 'next-intl';
 
-const TOTAL = 9;
+const QUOTES = [1, 2, 3] as const;
 
 export function Testimonials() {
   const t = useTranslations('Testimonials');
-  const [current, setCurrent] = useState(0);
-
-  const next = useCallback(() => {
-    setCurrent((c) => (c + 1) % TOTAL);
-  }, []);
-
-  const prev = useCallback(() => {
-    setCurrent((c) => (c - 1 + TOTAL) % TOTAL);
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(next, 6000);
-    return () => clearInterval(timer);
-  }, [next]);
-
-  const idx = current + 1;
-  const quote = t(`q${idx}`);
-  const name = t(`n${idx}`);
-  const role = t(`r${idx}`);
 
   return (
     <section className="testimonials-editorial" id="testimonials" aria-labelledby="testimonials-heading">
@@ -35,11 +15,7 @@ export function Testimonials() {
           className="testimonials-header"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.1,
-            ease: [0.16, 1, 0.3, 1] as any,
-          }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] as any }}
           viewport={{ once: true }}
         >
           <h2 id="testimonials-heading" className="label" style={{ display: 'block', textAlign: 'center', margin: 0 }}>
@@ -47,61 +23,25 @@ export function Testimonials() {
           </h2>
         </motion.div>
 
-        <div className="testimonial-quote-area">
-          <div className="testimonial-accent-line" />
-
-          <AnimatePresence mode="wait">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '48px', marginTop: '48px' }}>
+          {QUOTES.map((idx, i) => (
             <motion.div
-              key={current}
-              className="testimonial-slide"
+              key={idx}
               initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1] as any,
-              }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
-              onDragEnd={(_, info) => {
-                if (info.offset.x < -50) next();
-                else if (info.offset.x > 50) prev();
-              }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] as any }}
+              viewport={{ once: true }}
             >
-              <blockquote className="testimonial-quote">
-                &ldquo;{quote}&rdquo;
+              <div className="testimonial-accent-line" style={{ marginBottom: '24px' }} />
+              <blockquote className="testimonial-quote" style={{ margin: 0 }}>
+                &ldquo;{t(`q${idx}`)}&rdquo;
               </blockquote>
-              <div className="testimonial-attribution">
-                <span className="testimonial-name">{name}</span>
-                <span className="testimonial-role">{role}</span>
+              <div className="testimonial-attribution" style={{ marginTop: '20px' }}>
+                <span className="testimonial-name">{t(`n${idx}`)}</span>
+                <span className="testimonial-role">{t(`r${idx}`)}</span>
               </div>
             </motion.div>
-          </AnimatePresence>
-
-          <div className="testimonial-accent-line" />
-        </div>
-
-        <div className="testimonial-nav">
-          <button
-            type="button"
-            onClick={prev}
-            className="testimonial-arrow magnetic"
-            aria-label={t('prev')}
-          >
-            ←
-          </button>
-          <span className="testimonial-counter" aria-live="polite">
-            {String(idx).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
-          </span>
-          <button
-            type="button"
-            onClick={next}
-            className="testimonial-arrow magnetic"
-            aria-label={t('next')}
-          >
-            →
-          </button>
+          ))}
         </div>
       </div>
     </section>

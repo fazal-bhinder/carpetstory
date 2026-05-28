@@ -1,14 +1,33 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 declare global {
   interface Window {
     Lenis: any;
+    __carpetstory_rebind?: () => void;
   }
 }
 
 export function GlobalAnimations() {
+  const pathname = usePathname();
+
+  /**
+   * Re-bind dynamic DOM elements after every client-side navigation.
+   * The main initAnimations() useEffect runs once and persists across routes
+   * (the layout never unmounts), so freshly mounted hero counters, thread
+   * canvases, and intersection observers would otherwise stay inert.
+   */
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    // Wait one tick so the new route's DOM is mounted.
+    const t = setTimeout(() => {
+      window.__carpetstory_rebind?.();
+    }, 50);
+    return () => clearTimeout(t);
+  }, [pathname]);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -260,23 +279,31 @@ export function GlobalAnimations() {
 
       const threadInstances: { tc: ThreadCanvas, host: HTMLElement }[] = [];
       let threadRaf: number | null = null;
-      if (!isMobile && !prefersReducedMotion) {
+      let tcObs: IntersectionObserver | null = null;
+
+      function bindThreadHosts() {
+        if (isMobile || prefersReducedMotion) return;
         document.querySelectorAll('[data-thread-host]').forEach((el) => {
           const host = el as HTMLElement;
+          if (threadInstances.some(i => i.host === host)) return;
+          // Skip if the host already has a child canvas (defensive).
+          if (host.querySelector('canvas')) return;
           const tc = new ThreadCanvas(host);
           threadInstances.push({ tc, host });
+          if (tcObs && host.parentElement) tcObs.observe(host.parentElement);
         });
+      }
 
-        const tcObs = new IntersectionObserver((entries) => {
+      if (!isMobile && !prefersReducedMotion) {
+        tcObs = new IntersectionObserver((entries) => {
           entries.forEach(e => {
             const inst = threadInstances.find(i => i.host === e.target || i.host.parentElement === e.target || e.target.contains(i.host));
             if (!inst) return;
             if (e.isIntersecting) inst.tc.start(); else inst.tc.stop();
           });
         }, { rootMargin: '100px' });
-        threadInstances.forEach(inst => {
-          if (inst.host.parentElement) tcObs.observe(inst.host.parentElement);
-        });
+
+        bindThreadHosts();
 
         function threadLoop(time: number) {
           threadInstances.forEach(inst => inst.tc.step(time));
@@ -335,10 +362,22 @@ export function GlobalAnimations() {
         requestAnimationFrame(frame);
       }
 
-      const heroEl = document.getElementById('hero-knot-count');
-      if (heroEl) {
-        setTimeout(() => animateCount(heroEl, 2200000, 2500, formatM), 800);
+      function startHeroCounter() {
+        const heroEl = document.getElementById('hero-knot-count');
+        if (heroEl && heroEl.dataset.counted !== '1') {
+          heroEl.dataset.counted = '1';
+          setTimeout(() => animateCount(heroEl, 2200000, 2500, formatM), 800);
+        }
       }
+      startHeroCounter();
+
+      // Expose a rebind hook so the route-change effect can re-attach
+      // dynamic visual elements (hero counter, thread canvas) when the
+      // home page is revisited via SPA navigation.
+      window.__carpetstory_rebind = () => {
+        startHeroCounter();
+        bindThreadHosts();
+      };
 
       const countObs = new IntersectionObserver((entries) => {
         entries.forEach(e => {

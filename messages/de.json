@@ -33,11 +33,11 @@
   "Promise": {
     "headline": "Von den Webstühlen Rajasthans bis zu den Böden der {italic} Wohnräume der Welt.",
     "italic": "anspruchsvollsten",
-    "label": "Vorwort",
+    "label": "II — Vorwort",
     "body": "Jedes Carpetstory-Stück wird von einem einzelnen Kunsthandwerker gewebt, von Hand signiert und reist von einem Raum in Jaipur in einen anderen — irgendwo auf der Welt."
   },
   "Making": {
-    "label": "II — Die Herstellung",
+    "label": "III — Die Herstellung",
     "headline": "Acht Monate Arbeit liegen zwischen dem ersten und dem letzten Faden. Wir beeilen uns nicht.",
     "frame1Tag": "01 — Die Hand",
     "frame1Alt": "Hände des Webers mitten im Knoten, extreme Nahaufnahme",
@@ -69,7 +69,7 @@
     "frame8Caption": "Und dann, nach acht Monaten — der Boden."
   },
   "Knot": {
-    "label": "III — Eine Studie über Maßstab",
+    "label": "IV — Eine Studie über Maßstab",
     "one": "Ein Knoten.",
     "ten": "Zehn.",
     "hundred": "Einhundert.",
@@ -88,7 +88,7 @@
     "madeByValue": "Einem Kunsthandwerker"
   },
   "Materials": {
-    "label": "IV — Die Materialien",
+    "label": "V — Die Materialien",
     "headline": "Eine kurze und bedachte Liste der Dinge, die den Boden berühren.",
     "woolName": "Wolle",
     "woolDesc": "Bezogen von Hochlandschafen in Bikaner, wo die Wolle langfaserig, lanolinreich und natürlich glänzend ist. Handgesponnen, niemals maschinell kardiert.",
@@ -120,7 +120,7 @@
     "footer": "Sechs Pflanzen. Ein Fluss. Ein Dach unter der Sonne Rajasthans. Jede Farbe in einem Carpetstory-Stück beginnt an einem Ort, zu dem man gehen könnte."
   },
   "Collection": {
-    "label": "V — Die Kollektion",
+    "label": "I — Die Kollektion",
     "headline": "Sechs Stücke. Ausgewählt, nicht katalogisiert.",
     "viewAll": "Alle 24 Stücke ansehen →",
     "viewPiece": "Stück ansehen →",
@@ -214,6 +214,41 @@
     "rightBody": "Fachhandelspreise, vollständiger Zugang zur Kollektion, Projektmuster und ein dedizierter Ansprechpartner für die Spezifikation.",
     "rightCta": "Fachhandelskonto eröffnen →"
   },
+  "Archive": {
+    "title": "Das Archiv",
+    "subtitle": "Alle 24 Stücke. Jedes von einem Kunsthandwerker über sechs bis zwölf Monate gewebt.",
+    "from": "Ab",
+    "viewPiece": "Stück ansehen →"
+  },
+  "Trade": {
+    "title": "Für Innenarchitekten",
+    "intro1": "Wir arbeiten direkt mit Architekten, Innenarchitekten und Hotellerie-Profis zusammen, um handgefertigte Teppiche für konkrete Projekte zu beschaffen, anzupassen und in Auftrag zu geben.",
+    "intro2": "Unser Fachhandelsprogramm vereinfacht den Spezifikationsprozess und bietet Ihnen eine dedizierte Betreuung vom ersten Konzept bis zur endgültigen Installation.",
+    "benefitsHeading": "Fachhandelsvorteile",
+    "benefitsLead": "Als registrierter Fachhandelspartner erhalten Sie:",
+    "benefit1Title": "Fachhandelspreise",
+    "benefit1Body": "Exklusive Rabatte auf unsere gesamte Kollektion.",
+    "benefit2Title": "Anpassung",
+    "benefit2Body": "Ändern Sie Größe, Maßstab oder Farbpalette jedes vorhandenen Designs, damit es zu Ihrem Projekt passt.",
+    "benefit3Title": "Sonderanfertigungen",
+    "benefit3Body": "Arbeiten Sie mit unserem Designteam in Jaipur zusammen, um ein völlig neues, einzigartiges Stück zu weben.",
+    "benefit4Title": "Muster",
+    "benefit4Body": "Kostenlose Strike-offs und Materialmuster, direkt in Ihr Studio geliefert.",
+    "benefit5Title": "Dedizierte Betreuung",
+    "benefit5Body": "Ein einziger Ansprechpartner für Zeitplanung, Fracht und Installationslogistik.",
+    "processHeading": "Der Ablauf",
+    "step1Title": "1. Spezifikation",
+    "step1Body": "Teilen Sie Ihre Grundrisse, Stoffmuster oder Moodboards. Wir empfehlen Stücke aus dem Archiv oder beginnen mit dem Entwurf eines individuellen Designs.",
+    "step2Title": "2. Strike-off",
+    "step2Body": "Bei Sonderanfertigungen färben wir das Garn und weben ein kleines 60×60 cm Muster (ein Strike-off) zu Ihrer Freigabe, bevor das ganze Stück auf den Webstuhl kommt.",
+    "step3Title": "3. Produktion",
+    "step3Body": "Nach der Freigabe wird der Teppich gewebt. Je nach Knotenzahl und Maßstab dauert dies zwischen 12 und 36 Wochen. Wir liefern regelmäßige visuelle Updates vom Webstuhl.",
+    "quote": "Carpetstory hat genau verstanden, was der Raum brauchte. Das Sonderstück, das sie für das Londoner Stadthaus gewebt haben, ist der Anker des gesamten Raums.",
+    "quoteAuthor": "Studio Ashby",
+    "openAccountHeading": "Ein Konto eröffnen",
+    "openAccountBody": "Um ein Fachhandelskonto zu beantragen, senden Sie bitte Ihre Geschäftsdaten, Ihr Wiederverkaufszertifikat und Ihre Website per E-Mail an unser Team.",
+    "applyCta": "Per E-Mail bewerben"
+  },
   "TwoDoors": {
     "tradeHeadline": "Innenarchitekten & Architekten",
     "tradeBody": "Greifen Sie auf unser Fachhandelsportal für Datenblätter, Fachhandelspreise und individuelle Aufträge zu.",
@@ -287,5 +322,13 @@
     "english": "English",
     "french": "Français",
     "german": "Deutsch"
+  },
+  "PiecePage": {
+    "dimensions": "Abmessungen",
+    "materials": "Materialien",
+    "density": "Dichte",
+    "weaveTime": "Webzeit",
+    "priceFrom": "Ab",
+    "inquire": "Anfragen"
   }
 }

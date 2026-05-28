@@ -3,9 +3,26 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
+type Errors = { name?: string; email?: string; message?: string };
+
 export function Inquiry() {
   const t = useTranslations('Inquiry');
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Errors>({});
+
+  function validate(form: HTMLFormElement): Errors {
+    const data = new FormData(form);
+    const name = (data.get('name') as string)?.trim();
+    const email = (data.get('email') as string)?.trim();
+    const message = (data.get('message') as string)?.trim();
+    const errs: Errors = {};
+    if (!name) errs.name = 'Please enter your name.';
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = 'Please enter a valid email address.';
+    if (!message) errs.message = 'Please tell us about your space.';
+    return errs;
+  }
+
+  const errorStyle: React.CSSProperties = { color: 'var(--accent)', fontSize: '12px', marginTop: '4px', display: 'block' };
 
   return (
     <section className="inquiry" id="inquiry" aria-labelledby="inquiry-heading">
@@ -17,9 +34,12 @@ export function Inquiry() {
       ) : (
         <form
           className="inquiry-form"
+          noValidate
           onSubmit={(e) => {
             e.preventDefault();
-            setSubmitted(true);
+            const errs = validate(e.currentTarget);
+            setErrors(errs);
+            if (Object.keys(errs).length === 0) setSubmitted(true);
           }}
         >
           <h2 id="inquiry-heading">
@@ -35,8 +55,11 @@ export function Inquiry() {
                 type="text"
                 placeholder={t('namePlaceholder')}
                 autoComplete="name"
-                required
+                aria-required="true"
+                aria-describedby={errors.name ? 'inquiry-name-error' : undefined}
+                style={errors.name ? { borderBottomColor: 'var(--accent)' } : undefined}
               />
+              {errors.name && <span id="inquiry-name-error" role="alert" style={errorStyle}>{errors.name}</span>}
             </div>
             <div className="field">
               <label htmlFor="inquiry-email">{t('email')}</label>
@@ -47,8 +70,11 @@ export function Inquiry() {
                 placeholder={t('emailPlaceholder')}
                 autoComplete="email"
                 inputMode="email"
-                required
+                aria-required="true"
+                aria-describedby={errors.email ? 'inquiry-email-error' : undefined}
+                style={errors.email ? { borderBottomColor: 'var(--accent)' } : undefined}
               />
+              {errors.email && <span id="inquiry-email-error" role="alert" style={errorStyle}>{errors.email}</span>}
             </div>
           </div>
 
@@ -81,7 +107,11 @@ export function Inquiry() {
               id="inquiry-message"
               name="message"
               placeholder={t('imaginingPlaceholder')}
+              aria-required="true"
+              aria-describedby={errors.message ? 'inquiry-message-error' : undefined}
+              style={errors.message ? { borderBottomColor: 'var(--accent)' } : undefined}
             ></textarea>
+            {errors.message && <span id="inquiry-message-error" role="alert" style={errorStyle}>{errors.message}</span>}
           </div>
 
           <div className="submit-row">
