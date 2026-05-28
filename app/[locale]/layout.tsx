@@ -22,6 +22,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { GeoBanner } from '@/components/editorial/GeoBanner';
 import { CookieConsent } from '@/components/editorial/CookieConsent';
 import { localBusinessSchema, organizationSchema, websiteSchema } from '@/lib/seo';
+import { Analytics } from '@vercel/analytics/next';
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'https://carpetstory.com';
@@ -157,6 +158,7 @@ export default async function RootLayout({
             <div style={{ position: 'absolute', pointerEvents: 'none' }}>
               <Toaster />
             </div>
+            <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>
